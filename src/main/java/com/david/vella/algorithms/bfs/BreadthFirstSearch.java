@@ -1,5 +1,6 @@
 package com.david.vella.algorithms.bfs;
 
+import com.david.vella.algorithms.maze.IterativeBackTrackingMaze;
 import com.david.vella.algorithms.maze.Point;
 import com.david.vella.algorithms.maze.RecursiveBackTrackingMaze;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +12,7 @@ public class BreadthFirstSearch {
 
     public static void main(String[] args) {
         // Get a maze
-        RecursiveBackTrackingMaze maze = new RecursiveBackTrackingMaze(100, 100);
+        IterativeBackTrackingMaze maze = new IterativeBackTrackingMaze(1000, 1000);
         var start = maze.getStart();
         var end = maze.getEnd();
         ArrayList<Point> shortestPathList = new ArrayList();
@@ -30,7 +31,6 @@ public class BreadthFirstSearch {
         // loop till queue is empty
         while (!queue.isEmpty()) {
             var currentNode = queue.remove();
-            //log.info("Visited node with value: {}", currentNode);
 
             for (var neighbour: currentNode.getAdjacencyList(maze)) {
                 if(!visited.contains(neighbour)){
