@@ -1,6 +1,7 @@
 package com.david.vella.algorithms.bfs;
 
 import com.david.vella.algorithms.maze.IterativeBackTrackingMaze;
+import com.david.vella.algorithms.maze.KruskalMaze;
 import com.david.vella.algorithms.maze.Point;
 import com.david.vella.algorithms.maze.RecursiveBackTrackingMaze;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +13,7 @@ public class BreadthFirstSearch {
 
     public static void main(String[] args) {
         // Get a maze
-        IterativeBackTrackingMaze maze = new IterativeBackTrackingMaze(1000, 1000);
+        KruskalMaze maze = new KruskalMaze(1000, 1000);
         var start = maze.getStart();
         var end = maze.getEnd();
         ArrayList<Point> shortestPathList = new ArrayList();
