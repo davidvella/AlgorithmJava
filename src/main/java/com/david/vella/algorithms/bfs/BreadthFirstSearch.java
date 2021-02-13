@@ -1,27 +1,47 @@
 package com.david.vella.algorithms.bfs;
 
-import com.david.vella.algorithms.maze.IterativeBackTrackingMaze;
-import com.david.vella.algorithms.maze.KruskalMaze;
-import com.david.vella.algorithms.maze.Point;
-import com.david.vella.algorithms.maze.RecursiveBackTrackingMaze;
+import com.david.vella.algorithms.maze.*;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
 
 @Slf4j
-public class BreadthFirstSearch {
+public class BreadthFirstSearch implements MazeSolver {
+    // construct a set to keep track of visited cells
+    private Set<Point> visited;
+    //  maintain a queue of paths
+    private Queue<Point> queue;
+
+    private final AbstractMaze maze;
+
+    BreadthFirstSearch(AbstractMaze abstractMaze) {
+        // construct a set to keep track of visited cells
+        this.visited = new HashSet<>();
+        //  maintain a queue of paths
+        this.queue = new LinkedList<>();
+        this.maze = abstractMaze;
+    }
 
     public static void main(String[] args) {
         // Get a maze
-        KruskalMaze maze = new KruskalMaze(1000, 1000);
+        IterativeBackTrackingMaze maze = new IterativeBackTrackingMaze(100, 100);
         var start = maze.getStart();
         var end = maze.getEnd();
-        ArrayList<Point> shortestPathList = new ArrayList();
 
-        // construct a set to keep track of visited cells
-        Set<Point> visited = new HashSet<>();
-        //  maintain a queue of paths
-        Queue<Point> queue = new LinkedList<>();
+        BreadthFirstSearch search = new BreadthFirstSearch(maze);
+        var path = search.findPathTo(start, end);
+        System.out.println(path.size());
+    }
+
+    /*
+     ** Finds path between two nodes or returns null
+     **
+     ** @param start coordinates of the start position
+     ** @param end coordinates of the end position
+     ** @return (List<Point> | null) the path
+     */
+    @Override
+    public List<Point> findPathTo(Point start, Point end) {
         // push the first path into the queue
         queue.add(start);
 
@@ -45,6 +65,8 @@ public class BreadthFirstSearch {
 
         // Find the shortest path
         Point node, currentSrc=end;
+
+        ArrayList<Point> shortestPathList = new ArrayList();
         shortestPathList.add(end);
         while(!pathStack.isEmpty())
         {
@@ -57,6 +79,7 @@ public class BreadthFirstSearch {
                     break;
             }
         }
-        System.out.println(shortestPathList.size());
+        Collections.reverse(shortestPathList);
+        return shortestPathList;
     }
 }
