@@ -76,7 +76,7 @@ public class Point {
      * Return a list of points that the user can travel to next.
      * @return A list of available points.
      */
-    public List<Point> getAdjacencyList(AbstractMaze maze){
+    public List<Point> getAdjacencyList(Maze maze){
         List<Point> availablePoints = new ArrayList<>(4);
 
         // Check each direction
@@ -102,7 +102,7 @@ public class Point {
     /**
      * Check whether point is neighbour of this point.
      */
-    public boolean isNeighbour(Point point, AbstractMaze maze){
+    public boolean isNeighbour(Point point, Maze maze){
         return getAdjacencyList(maze).stream().anyMatch((adjacent) -> adjacent.equals(point));
     }
 

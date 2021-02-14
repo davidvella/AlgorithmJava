@@ -17,7 +17,7 @@ public class IterativeBackTrackingMaze extends AbstractMaze{
     }
 
     @Override
-    void generateMaze() {
+    public void generateMaze() {
         addWallsToAllPoints();
 
         Point initial = getPoint(0,0);

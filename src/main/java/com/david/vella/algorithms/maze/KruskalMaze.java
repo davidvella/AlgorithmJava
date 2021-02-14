@@ -59,7 +59,7 @@ public class KruskalMaze extends AbstractMaze{
     }
 
     @Override
-    void generateMaze() {
+    public void generateMaze() {
         init();
         while (!edges.isEmpty()) {
             // Select the next edge, and decide which direction we are going in.

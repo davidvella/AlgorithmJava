@@ -27,7 +27,7 @@ public class RecursiveBackTrackingMaze extends AbstractMaze{
     }
 
     @Override
-    void generateMaze() {
+    public void generateMaze() {
         addWallsToAllPoints();
         generateMaze(0,0);
     }

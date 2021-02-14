@@ -12,9 +12,9 @@ public class BreadthFirstSearch implements MazeSolver {
     //  maintain a queue of paths
     private Queue<Point> queue;
 
-    private final AbstractMaze maze;
+    private final Maze maze;
 
-    BreadthFirstSearch(AbstractMaze abstractMaze) {
+    BreadthFirstSearch(Maze abstractMaze) {
         // construct a set to keep track of visited cells
         this.visited = new HashSet<>();
         //  maintain a queue of paths

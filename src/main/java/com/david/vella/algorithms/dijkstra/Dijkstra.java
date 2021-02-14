@@ -1,6 +1,9 @@
-package com.david.vella.algorithms.astar;
+package com.david.vella.algorithms.dijkstra;
 
-import com.david.vella.algorithms.maze.*;
+import com.david.vella.algorithms.maze.IterativeBackTrackingMaze;
+import com.david.vella.algorithms.maze.Maze;
+import com.david.vella.algorithms.maze.MazeSolver;
+import com.david.vella.algorithms.maze.Point;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -8,7 +11,7 @@ import lombok.Setter;
 
 import java.util.*;
 
-public class AStar implements MazeSolver {
+public class Dijkstra implements MazeSolver {
 
     private Queue<Node> open;
     private Set<Node> closed;
@@ -17,7 +20,9 @@ public class AStar implements MazeSolver {
 
     private final Maze maze;
 
-    public AStar(Maze maze) {
+    private static final double NODE_COST = 1;
+
+    public Dijkstra(Maze maze) {
         this.open = new PriorityQueue<>();
         this.closed = new HashSet<>();
         this.maze = maze;
@@ -27,7 +32,7 @@ public class AStar implements MazeSolver {
         IterativeBackTrackingMaze maze = new IterativeBackTrackingMaze(2000, 2000);
         var start = maze.getStart();
         var end = maze.getEnd();
-        AStar search = new AStar(maze);
+        Dijkstra search = new Dijkstra(maze);
         var path = search.findPathTo(start, end);
         System.out.println(path.size());
     }
@@ -42,7 +47,7 @@ public class AStar implements MazeSolver {
     public List<Point> findPathTo(Point start, Point end) {
         this.end = end;
 
-        Node now = new Node(null, start, 0, 0);
+        Node now = new Node(null, start, 0);
         this.closed.add(now);
 
         addNeighboursToOpenList(now);
@@ -67,22 +72,14 @@ public class AStar implements MazeSolver {
     private void addNeighboursToOpenList(Node now) {
         for (Point neighbour:
                 now.getPoint().getAdjacencyList(maze)) {
-            Node node = new Node(now, neighbour, now.getG(), this.distance(neighbour));
+            Node node = new Node(now, neighbour, now.getCost());
             if (!this.open.contains(node) && !closed.contains(node)) { // if not already done
-                node.g = node.parent.g + 1; // Horizontal/vertical cost = 1.0
+                node.cost = node.parent.getCost() + NODE_COST; // Horizontal/vertical cost = 1.0
                 this.open.add(node);
             }
         }
     }
 
-    /*
-     ** Calculate distance between point and the end
-     **
-     ** @return (int) distance
-     */
-    private double distance(Point point) {
-        return Math.abs(point.getX()  - this.end.getX()) + Math.abs(point.getY()  - this.end.getY());
-    }
 
     @AllArgsConstructor
     @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -94,23 +91,13 @@ public class AStar implements MazeSolver {
         private Point point;
         @Getter @Setter
         // g(n) is the cost of the path from the current node to n
-        // h(n) is a heuristic function that estimates the cost of the cheapest path from n to the goal
-        private double g, h;
+        private double cost;
         // Compare by f value (g + h)
         @Override
         public int compareTo(Object o) {
             Node that = (Node) o;
-            Double cost = this.g + this.h;
-            return cost.compareTo(that.g + that.h);
+            Double cost = this.getCost();
+            return cost.compareTo(that.getCost());
         }
     }
-
-
-
-
-
-
-
-
-
 }
