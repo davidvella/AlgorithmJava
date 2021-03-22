@@ -2,6 +2,11 @@ package com.david.vella.algorithms.quicksort;
 
 public class Quicksort {
 
+    /**
+     * Best: O(nlog(n)) time | O(log(n)) space - where n is the length of the input array
+     * Average: O(nlog(n)) time | O(log(n)) space - where n is the length of the input array
+     * Worst: O(n^2) time | O(log(n)) space - where n is the length of the input array
+     */
     public static int[] quickSort(int[] array) {
         int[] clone = array.clone();
 
