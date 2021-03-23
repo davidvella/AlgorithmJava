@@ -9,9 +9,6 @@ public class HeapSort {
      *
      * Code: O(n) build heap, O(nlogn) convert heap to sorted array
      *
-     * A Binary Heap is either Min Heap or Max Heap.
-     * In a Min Binary Heap, the key at root must be minimum among all keys present in Binary Heap.
-     * The same property must be recursively true for all nodes in Binary Tree. Max Binary Heap is similar to MinHeap.
      */
     public static int[] heapSort(int[] array) {
         //build the heap
