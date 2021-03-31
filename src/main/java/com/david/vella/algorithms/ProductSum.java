@@ -13,7 +13,6 @@ public class ProductSum {
      * and d is the greatest depth of "special" arrays in the array
      */
     public static int productSum(List<Object> array) {
-
         // Write your code here.
         return productSumHelper(array, 1);
     }
