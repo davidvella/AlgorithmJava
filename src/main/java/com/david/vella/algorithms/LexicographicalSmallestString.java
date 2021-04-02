@@ -14,9 +14,9 @@ package com.david.vella.algorithms;
 public class LexicographicalSmallestString {
 
     /**
-     * By definition of lexicographical order each next string is larger
+     *  By definition of lexicographical order each next string is larger
      *  than the previous one А < АА < ААА < АAB < ААC < АB < B < … < ZZZ
-     * Since we could only remove one character, we should remove the first char
+     *  Since we could only remove one character, we should remove the first char
      *  we meet that is greater than the next from left to right.
      *  In this case our string will be lexicographically smallest.
      *
