@@ -30,22 +30,20 @@ public class LogicBasedPuzzleGame {
         int len = stringBuilder.length();
         Random random = new Random();
 
-        for (int index = 0; index < len; ++index){
-            char character = stringBuilder.charAt(index);
-            // Replace character here
-            if(character == '?'){
-                // Max value is exclusive.
-                // ... So this returns 1, 2, through 25.
-                // Worst case needs to iterate twice
-                while (true){
-                    // Generate random char between a and z
-                    char rc = (char)(random.nextInt(26) + 'a');
-
-                    if ((index == 0 || rc != stringBuilder.charAt(index -1))
-                            && (index == len - 1 || rc != stringBuilder.charAt(index + 1))) {
-                        stringBuilder.setCharAt(index , rc);
-                        break;
-                    }
+        int off = 0;
+        int next;
+        // Loop through all occurrences of ?
+        while ((next = stringBuilder.indexOf("?", off)) != -1) {
+            // Max value is exclusive.
+            // ... So this returns 1, 2, through 25.
+            // Worst case needs to iterate twice
+            while (true){
+                // Generate random char between a and z
+                char rc = (char)(random.nextInt(26) + 'a');
+                if ((next == 0 || rc != stringBuilder.charAt(next -1))
+                        && (next == len - 1 || rc != stringBuilder.charAt(next + 1))) {
+                    stringBuilder.setCharAt(next , rc);
+                    break;
                 }
             }
         }
@@ -53,7 +51,7 @@ public class LogicBasedPuzzleGame {
     }
 
     public static void main(String[] args) {
-        String test = "??????";
+        String test = "?a??z?";
         String result = solution(test);
     }
 
