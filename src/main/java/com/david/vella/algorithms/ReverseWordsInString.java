@@ -16,39 +16,33 @@ public class ReverseWordsInString {
         ArrayList<String> words = new ArrayList<>();
         // Keep on looping until there are no more matching characters
         while ((next = string.indexOf(' ', off)) != -1) {
-            words.add(string.substring(off, next));
+            String res = string.substring(off, next);
+            if(!res.isEmpty()) words.add(res);
             off = next + 1;
         }
         // Add the remaining segment
         words.add(string.substring(off));
-        reverse(words);
-        return String.join(" ", words);
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = words.size() - 1; i >= 0; i--) {
+            sb.append(words.get(i) + " ");
+        }
+        return trimSubstring(sb);
     }
 
-    /**
-     * Reverses the order of the elements in the specified list.<p>
-     * <p>
-     * This method runs in linear time.
-     */
-    public static void reverse(List<String> list) {
-        int size = list.size();
+    public static String trimSubstring(StringBuilder sb) {
+        int first, last;
 
-        for (int i = 0, mid = size >> 1, j = size - 1; i < mid; i++, j--)
-            swap(list, i, j);
+        for (first=0; first<sb.length(); first++)
+            if (!Character.isWhitespace(sb.charAt(first)))
+                break;
+
+        for (last=sb.length(); last>first; last--)
+            if (!Character.isWhitespace(sb.charAt(last-1)))
+                break;
+
+        return sb.substring(first, last);
     }
 
-    /**
-     * Swaps the elements at the specified positions in the specified list.
-     * (If the specified positions are equal, invoking this method leaves
-     * the list unchanged.)
-     *
-     * @param list The list in which to swap elements.
-     * @param i    the index of one element to be swapped.
-     * @param j    the index of the other element to be swapped.
-     */
-    public static void swap(List<String> list, int i, int j) {
-        final List<String> l = list;
-        l.set(i, l.set(j, l.get(i)));
-    }
 }
 

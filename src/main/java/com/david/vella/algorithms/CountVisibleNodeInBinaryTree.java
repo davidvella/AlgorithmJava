@@ -46,6 +46,21 @@ public class CountVisibleNodeInBinaryTree {
         return countVisibleNodes(root, Integer.MIN_VALUE);
     }
 
+    int tot = 0;
+
+    // Time: O(n)
+    // Space: O(n)
+    public int goodNodes2(TreeNode root) {
+        goodHelper(root,Integer.MIN_VALUE);
+        return tot;
+    }
+    public void goodHelper(TreeNode root,int maxTill){
+        if(root==null)return;
+        if(maxTill<=root.val)tot++;
+        goodHelper(root.left,Math.max(maxTill,root.val));
+        goodHelper(root.right,Math.max(maxTill,root.val));
+    }
+
     // Time: O(n)
     // Space: O(n)
     static int countVisibleNodes(TreeNode node, int maxSoFar) {
